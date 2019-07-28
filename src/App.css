@@ -1,0 +1,14 @@
+.appDiv{
+    border: 1px black dotted;
+    text-align: center;
+}
+
+header{
+    background-color: lightgray;
+    border: 1px black solid;
+}
+
+.sideMainContainer{
+    display: flex;
+    justify-content: space-evenly;  
+}
