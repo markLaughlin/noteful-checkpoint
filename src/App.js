@@ -13,14 +13,24 @@ import AddNote from "./AddNote"
 
 class App extends Component{
 
+  static contextType = NotefulContext
+
   state = {
     apiFolders: [],
-    apiNotes: []
-};
+    apiNotes: [],
+    error: null
+  };
 
   componentDidMount(){
     console.log("ComponentDidMount Ran")
+
     fetch("http://localhost:9090/folders")
+    .then(response => {
+      if(!response.ok){
+        throw new Error("Sorry! Something went wrong with the fetch request for folders.")
+      }
+      return response;
+    })
     .then(response => response.json())
     .then(responseFoldersJson => {
       console.log("HERE COME THE FOLDERS; folders to be set in state")
@@ -30,8 +40,19 @@ class App extends Component{
         apiFolders: responseFoldersJson,
       })
       console.log("this.setState for folders just ran")
-    }) 
+    })
+    .catch(error => {
+        console.log(error)
+        this.setState({error: error.message})
+    });
+
     fetch("http://localhost:9090/notes")
+    .then(response => {
+      if(!response.ok){
+        throw new Error("Sorry! Something went wrong with the fetch request for notes.")
+      }
+      return response;
+    })
     .then(responseNotes => responseNotes.json())
     .then(responseNotesJson => {
       console.log("HERE COME THE NOTES; notes to be set in state")
@@ -42,6 +63,10 @@ class App extends Component{
       })
       console.log("this.setState for notes just ran")
     }) 
+    .catch(error => {
+      console.log(error)
+      this.setState({error: error.message})
+    });
   }
 
   deleteNote = (noteIdToDelete) => {
@@ -56,17 +81,21 @@ class App extends Component{
   render(){
     console.log("App component render method ran")  
    
-    
     const contextValue = {
       contextFolders: this.state.apiFolders,
       contextNotes: this.state.apiNotes,
+      contextError: this.state.error,
       deleteNote: this.deleteNote
     }
+
+    const error = this.state.error ? <div><h1>{this.state.error}</h1></div> : ""
 
     return (
       <NotefulContext.Provider value={contextValue}>
 
       <div className="appDiv">
+
+        {error}
 
         <header>
           <h1>
@@ -75,7 +104,7 @@ class App extends Component{
         </header>
 
         <div className="sideMainContainer">
-        
+
         {/* Main Route */}
 
         <Route exact path='/' 

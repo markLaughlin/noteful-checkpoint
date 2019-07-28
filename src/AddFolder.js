@@ -3,6 +3,10 @@ import "./Main.css"
 
 export default class AddFolder extends Component{
 
+    state = {
+        error: null,
+      };
+
     handleFolderSubmit(e){
         console.log("handleSubmit method ran")
         e.preventDefault()
@@ -22,14 +26,19 @@ export default class AddFolder extends Component{
             headers: {'content-type': 'application/json'},
         }
         )//fetch
-
+        
     }//handleFolderSubmit
 
     render(){
         console.log("render method of AddFolder ran")
+        const error = this.state.error ? <div><h1>{this.state.error}</h1></div> : ""
+
 
         return(
             <div className="mainDiv">
+
+                {error}
+
                 <form onSubmit = {this.handleFolderSubmit}>
 
                     <br/>

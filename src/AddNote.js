@@ -5,7 +5,6 @@ export default class AddNote extends Component{
 
     static contextType = NotefulContext
     
-
     handleNoteSubmit(e){
         console.log("handleNoteSubmit method ran")
         e.preventDefault()
@@ -29,6 +28,7 @@ export default class AddNote extends Component{
             headers: {'content-type': 'application/json'},
         }
         )//fetch
+        
 
     }//habndleNoteSubmit
 
