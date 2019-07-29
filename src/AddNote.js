@@ -4,16 +4,26 @@ import NotefulContext from "./NotefulContext"
 export default class AddNote extends Component{
 
     static contextType = NotefulContext
+
+    state = {
+        error: null,
+        name: {value: "", touched: false},
+        id: "",
+        modified: "",
+        content: "",
+        folderId: ""
+      };
     
-    handleNoteSubmit(e){
+    handleNoteSubmit = (e) => {
         console.log("handleNoteSubmit method ran")
         e.preventDefault()
-        let id = e.target.id.value
-        let name = e.target.name.value
-        let modified = e.target.modified.value
-        let content = e.target.content.value
-        let folderId = e.target.folder.value
-       
+        let id = this.state.id
+        let name = this.state.name.value
+        let modified = this.state.modified
+        let content = this.state.content
+        let folderId = this.state.folderId
+
+               
         let note = {
             id: id,
             name: name,
@@ -26,15 +36,54 @@ export default class AddNote extends Component{
             method: 'POST',
             body: JSON.stringify(note),
             headers: {'content-type': 'application/json'},
-        }
-        )//fetch
-        
+        })//fetch
+        .then(response => {
+            if(!response.ok){
+              throw new Error("Sorry! Something went wrong with the POST request for this note.")
+            }
+            return response;
+          })   
+          .catch(error => {
+            console.log(error)
+            this.setState({error: error.message})
+          })
+    }//handleNoteSubmit
 
-    }//habndleNoteSubmit
+    updateId(id){
+        this.setState({id: id})
+    }
+
+    updateName(name){
+        this.setState({name:{value: name, touched: true}})
+    }//updateName
+
+    updateModified(modified){
+        this.setState({modified: modified})
+    }
+
+    updateContent(content){
+        this.setState({content: content})
+    }
+
+    updateFolderId(folderId){
+        this.setState({folderId: folderId})
+    }
+
+    validateName(){
+        const name = this.state.name.value.trim();
+        if (name.length === 0) {
+          return "Name is required";
+        } else if (name.length < 3) {
+          return "Name must be at least three characters long";
+        }
+      }//validateName
 
     render(){
         console.log("render method of AddNote ran")
-        
+        let error  = this.state.error
+        const nameError = this.state.name.touched ? this.validateName() : ""
+
+
         let allFolders = this.context.contextFolders.map(folder => 
                 <option key={folder.id} value={folder.id}>{folder.name}</option>
         );
@@ -43,6 +92,9 @@ export default class AddNote extends Component{
 
         return(
             <div className="mainDiv">
+
+                <h1>{error}</h1>
+
                 <form onSubmit={this.handleNoteSubmit}>
                 <br/>
                     <div className="formInput">
@@ -54,9 +106,12 @@ export default class AddNote extends Component{
                         name='id'
                         id='id'
                         placeholder='unique note id here...'
+                        onChange = {(e) => this.updateId(e.target.value)}
                         />
                     </div>
                     <br/>
+
+                    <h3>{nameError}</h3>
 
                     <div className="formInput">
                         <label htmlFor='name'>
@@ -67,6 +122,7 @@ export default class AddNote extends Component{
                         name='name'
                         id='name'
                         placeholder='name of note here...'
+                        onChange = {(e) => this.updateName(e.target.value)}
                         />
                     </div>
                     <br/>
@@ -80,6 +136,7 @@ export default class AddNote extends Component{
                         name='modified'
                         id='modified'
                         placeholder='month-day-year'
+                        onChange = {(e) => this.updateModified(e.target.value)}
                         />
                     </div>
                     <br/>
@@ -92,6 +149,7 @@ export default class AddNote extends Component{
                         <textarea
                         name='content'
                         id='content'
+                        onChange = {(e) => this.updateContent(e.target.value)}
                         />
                     </div>
                     <br/>
@@ -101,7 +159,10 @@ export default class AddNote extends Component{
                         Folder: {" "}
                         </label>
                         
-                        <select name="folder" id="folder">
+                        <select name="folder" 
+                        id="folder" 
+                        onChange = {(e) => this.updateFolderId(e.target.value)}
+                        >
                             {allFolders}
                         </select>
 
@@ -109,8 +170,6 @@ export default class AddNote extends Component{
                     <br/>
                     
                     <button className="bigButton" type="submit">Save</button>
-                    <br/>
-                    <button className="bigButton" onClick={this.props.history.goBack}>Go Back</button>
 
                 </form>
             </div>

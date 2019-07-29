@@ -5,14 +5,16 @@ export default class AddFolder extends Component{
 
     state = {
         error: null,
+        name: {value: "", touched: false},
+        id: ""
       };
 
-    handleFolderSubmit(e){
+    handleFolderSubmit =(e) =>{
         console.log("handleSubmit method ran")
         e.preventDefault()
 
-        let id = e.target.id.value
-        let name = e.target.name.value
+        let id = this.state.id
+        let name = this.state.name.value
         console.log(id)
         console.log(name)
         let folder = {
@@ -29,10 +31,27 @@ export default class AddFolder extends Component{
         
     }//handleFolderSubmit
 
+    updateName(name){
+        this.setState({name:{value: name, touched: true}})
+    }
+
+    updateId(id){
+        this.setState({id: id})
+    }
+
+    validateName(){
+        const name = this.state.name.value.trim();
+        if (name.length === 0) {
+          return "Name is required";
+        } else if (name.length < 3) {
+          return "Name must be at least three characters long";
+        }
+      }
+
     render(){
         console.log("render method of AddFolder ran")
         const error = this.state.error ? <div><h1>{this.state.error}</h1></div> : ""
-
+        const nameError = this.state.name.touched ? this.validateName() : ""
 
         return(
             <div className="mainDiv">
@@ -51,9 +70,11 @@ export default class AddFolder extends Component{
                         name='id'
                         id='id'
                         placeholder='b0715efe-ffaf-11e8-8eb2-f2801f1b9fd2'
+                        onChange = {(e) => this.updateId(e.target.value)}
                         />
                     </div>
                     <br/>
+                    <h3>{nameError}</h3>
 
                     <div className="formInput">
                         <label htmlFor='name'>
@@ -64,13 +85,13 @@ export default class AddFolder extends Component{
                         name='name'
                         id='name'
                         placeholder='name of folder here...'
+                        onChange = {(e) => this.updateName(e.target.value)}
                         />
                     </div>
                     <br/>
 
                     <button type="submit" className="bigButton">Save</button>
                     <br/>
-                    <button className="bigButton" onClick={this.props.history.goBack}>Go Back</button>
 
                 </form>
             </div>

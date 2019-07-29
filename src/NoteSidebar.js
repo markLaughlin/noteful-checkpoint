@@ -55,7 +55,7 @@ class NoteSidebar extends Component{
                 
                 <div>
                 <h2> 
-                    {displayFolder[0].name}
+                  {displayFolder[0].name}
                 </h2>
                 </div>
                 
