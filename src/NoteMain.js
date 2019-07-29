@@ -9,7 +9,6 @@ class NoteMain extends Component{
   render(){
       console.log("render method of NoteMain Route component ran")
 
-      
       let showNote = true
 
       let allNotes = this.context.contextNotes;

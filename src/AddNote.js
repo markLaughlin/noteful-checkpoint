@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import NotefulContext from "./NotefulContext"
+import AppError from "./AppError"
 
 export default class AddNote extends Component{
 
@@ -91,89 +92,90 @@ export default class AddNote extends Component{
         console.log(allFolders)
 
         return(
-            <div className="mainDiv">
+            <AppError>
+                <div className="mainDiv">
 
-                <h1>{error}</h1>
+                    <h1>{error}</h1>
 
-                <form onSubmit={this.handleNoteSubmit}>
-                <br/>
-                    <div className="formInput">
-                        <label htmlFor='id'>
-                        ID: {" "}
-                        </label>
-                        <input
-                        type='text'
-                        name='id'
-                        id='id'
-                        placeholder='unique note id here...'
-                        onChange = {(e) => this.updateId(e.target.value)}
-                        />
-                    </div>
+                    <form onSubmit={this.handleNoteSubmit}>
                     <br/>
-
-                    <h3>{nameError}</h3>
-
-                    <div className="formInput">
-                        <label htmlFor='name'>
-                        Name: {" "}
-                        </label>
-                        <input
-                        type='text'
-                        name='name'
-                        id='name'
-                        placeholder='name of note here...'
-                        onChange = {(e) => this.updateName(e.target.value)}
-                        />
-                    </div>
-                    <br/>
-
-                    <div className="formInput">
-                        <label htmlFor='modified'>
-                        Modified: {" "}
-                        </label>
-                        <input
-                        type='text'
-                        name='modified'
-                        id='modified'
-                        placeholder='month-day-year'
-                        onChange = {(e) => this.updateModified(e.target.value)}
-                        />
-                    </div>
-                    <br/>
-
-                    <div className="formInput">
-                        <label htmlFor='content'>
-                        Content: 
-                        </label>
+                        <div className="formInput">
+                            <label htmlFor='id'>
+                            ID: {" "}
+                            </label>
+                            <input
+                            type='text'
+                            name='id'
+                            id='id'
+                            placeholder='unique note id here...'
+                            onChange = {(e) => this.updateId(e.target.value)}
+                            />
+                        </div>
                         <br/>
-                        <textarea
-                        name='content'
-                        id='content'
-                        onChange = {(e) => this.updateContent(e.target.value)}
-                        />
-                    </div>
-                    <br/>
 
-                    <div className="formInput">
-                        <label htmlFor='folder'>
-                        Folder: {" "}
-                        </label>
+                        <h3>{nameError}</h3>
+
+                        <div className="formInput">
+                            <label htmlFor='name'>
+                            Name: {" "}
+                            </label>
+                            <input
+                            type='text'
+                            name='name'
+                            id='name'
+                            placeholder='name of note here...'
+                            onChange = {(e) => this.updateName(e.target.value)}
+                            />
+                        </div>
+                        <br/>
+
+                        <div className="formInput">
+                            <label htmlFor='modified'>
+                            Modified: {" "}
+                            </label>
+                            <input
+                            type='text'
+                            name='modified'
+                            id='modified'
+                            placeholder='month-day-year'
+                            onChange = {(e) => this.updateModified(e.target.value)}
+                            />
+                        </div>
+                        <br/>
+
+                        <div className="formInput">
+                            <label htmlFor='content'>
+                            Content: 
+                            </label>
+                            <br/>
+                            <textarea
+                            name='content'
+                            id='content'
+                            onChange = {(e) => this.updateContent(e.target.value)}
+                            />
+                        </div>
+                        <br/>
+
+                        <div className="formInput">
+                            <label htmlFor='folder'>
+                            Folder: {" "}
+                            </label>
+                            
+                            <select name="folder" 
+                            id="folder" 
+                            onChange = {(e) => this.updateFolderId(e.target.value)}
+                            >
+                                {allFolders}
+                            </select>
+
+                        </div>
+                        <br/>
                         
-                        <select name="folder" 
-                        id="folder" 
-                        onChange = {(e) => this.updateFolderId(e.target.value)}
-                        >
-                            {allFolders}
-                        </select>
+                        <button className="bigButton" type="submit">Save</button>
 
-                    </div>
-                    <br/>
-                    
-                    <button className="bigButton" type="submit">Save</button>
-
-                </form>
-            </div>
-        )
-        
+                    </form>
+                </div>
+            </AppError>
+        );
     }
 }

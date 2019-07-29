@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import "./Main.css"
+import AppError from "./AppError"
 
 export default class AddFolder extends Component{
 
@@ -54,48 +55,51 @@ export default class AddFolder extends Component{
         const nameError = this.state.name.touched ? this.validateName() : ""
 
         return(
-            <div className="mainDiv">
+            <AppError>
+                <div className="mainDiv">
 
-                {error}
+                    {error}
 
-                <form onSubmit = {this.handleFolderSubmit}>
+                    <form onSubmit = {this.handleFolderSubmit}>
 
-                    <br/>
-                    <div className="formInput">
-                        <label htmlFor='id'>
-                        ID: {" "}
-                        </label>
-                        <input
-                        type='text'
-                        name='id'
-                        id='id'
-                        placeholder='b0715efe-ffaf-11e8-8eb2-f2801f1b9fd2'
-                        onChange = {(e) => this.updateId(e.target.value)}
-                        />
-                    </div>
-                    <br/>
-                    <h3>{nameError}</h3>
+                        <br/>
+                        <div className="formInput">
+                            <label htmlFor='id'>
+                            ID: {" "}
+                            </label>
+                            <input
+                            type='text'
+                            name='id'
+                            id='id'
+                            placeholder='b0715efe-ffaf-11e8-8eb2-f2801f1b9fd2'
+                            onChange = {(e) => this.updateId(e.target.value)}
+                            />
+                        </div>
+                        <br/>
+                        <h3>{nameError}</h3>
 
-                    <div className="formInput">
-                        <label htmlFor='name'>
-                        Name: {" "}
-                        </label>
-                        <input
-                        type='text'
-                        name='name'
-                        id='name'
-                        placeholder='name of folder here...'
-                        onChange = {(e) => this.updateName(e.target.value)}
-                        />
-                    </div>
-                    <br/>
 
-                    <button type="submit" className="bigButton">Save</button>
-                    <br/>
+                        <div className="formInput">
+                            <label htmlFor='name'>
+                            Name: {" "}
+                            </label>
+                            <input
+                            type='text'
+                            name='name'
+                            id='name'
+                            placeholder='name of folder here...'
+                            onChange = {(e) => this.updateName(e.target.value)}
+                            />
+                        </div>
 
-                </form>
-            </div>
-        )
+                        <br/>
+
+                        <button type="submit" className="bigButton">Save</button>
+                        <br/>
+                    </form>
+                </div>
+            </AppError>
+        );
         
     }
 }

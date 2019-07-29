@@ -10,6 +10,7 @@ import "./App.css"
 import NotefulContext from "./NotefulContext"
 import AddFolder from "./AddFolder"
 import AddNote from "./AddNote"
+import AppError from "./AppError"
 
 class App extends Component{
 
@@ -104,45 +105,48 @@ class App extends Component{
         </header>
 
         <div className="sideMainContainer">
+        
+        <AppError>
 
-        {/* Main Route */}
+            {/* Main Route */}
+            <Route exact path='/' 
+              component={MainSidebar}
+            /> 
 
-        <Route exact path='/' 
-          component={MainSidebar}
-        /> 
+            <Route exact path='/'
+              component={MainMain}
+            /> 
 
-        <Route exact path='/'
-           component={MainMain}
-        /> 
+            {/* Folder Route */}
 
-        {/* Folder Route */}
+            <Route path="/folder/:folderId"
+              component={FolderSidebar}
+            />
 
-        <Route path="/folder/:folderId"
-          component={FolderSidebar}
-        />
+            <Route path="/folder/:folderId"
+              component={FolderMain}
+            />
 
-        <Route path="/folder/:folderId"
-          component={FolderMain}
-        />
+            {/* Note Route */}
 
-        {/* Note Route */}
+            <Route path="/note/:noteId"
+              component={NoteSidebar}
+            />
 
-        <Route path="/note/:noteId"
-          component={NoteSidebar}
-        />
+            <Route path="/note/:noteId"
+              component={NoteMain}
+            />
 
-        <Route path="/note/:noteId"
-          component={NoteMain}
-        />
+            <Route path="/addfolder"
+              component={AddFolder}
+            />
 
-        <Route path="/addfolder"
-          component={AddFolder}
-        />
+            <Route path="/addnote"
+              component={AddNote}
+            />
 
-        <Route path="/addnote"
-          component={AddNote}
-        />
-           
+        </AppError>
+        
         </div>
       </div>
       </NotefulContext.Provider>
