@@ -11,6 +11,7 @@ import NotefulContext from "./NotefulContext"
 import AddFolder from "./AddFolder"
 import AddNote from "./AddNote"
 import AppError from "./AppError"
+import AddNoteToSpecificFolder from "./AddNoteToSpecificFolder"
 
 class App extends Component{
 
@@ -141,9 +142,13 @@ class App extends Component{
               component={AddFolder}
             />
 
-            <Route path="/addnote"
+            <Route exact path="/addnote"
               component={AddNote}
             />
+
+            <Route path="/addnote/:folderId"
+              component={AddNoteToSpecificFolder}
+            /> 
 
         </AppError>
         

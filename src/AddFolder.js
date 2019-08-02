@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import "./Main.css"
 import AppError from "./AppError"
 
 export default class AddFolder extends Component{
@@ -7,7 +6,6 @@ export default class AddFolder extends Component{
     state = {
         error: null,
         name: {value: "", touched: false},
-        id: ""
       };
 
     handleFolderSubmit =(e) =>{
@@ -19,7 +17,6 @@ export default class AddFolder extends Component{
         console.log(id)
         console.log(name)
         let folder = {
-            id: id,
             name: name
         }
         console.log(folder)
@@ -36,10 +33,6 @@ export default class AddFolder extends Component{
         this.setState({name:{value: name, touched: true}})
     }
 
-    updateId(id){
-        this.setState({id: id})
-    }
-
     validateName(){
         const name = this.state.name.value.trim();
         if (name.length === 0) {
@@ -53,7 +46,7 @@ export default class AddFolder extends Component{
         console.log("render method of AddFolder ran")
         const error = this.state.error ? <div><h1>{this.state.error}</h1></div> : ""
         const nameError = this.state.name.touched ? this.validateName() : ""
-
+        
         return(
             <AppError>
                 <div className="mainDiv">
@@ -63,18 +56,7 @@ export default class AddFolder extends Component{
                     <form onSubmit = {this.handleFolderSubmit}>
 
                         <br/>
-                        <div className="formInput">
-                            <label htmlFor='id'>
-                            ID: {" "}
-                            </label>
-                            <input
-                            type='text'
-                            name='id'
-                            id='id'
-                            placeholder='b0715efe-ffaf-11e8-8eb2-f2801f1b9fd2'
-                            onChange = {(e) => this.updateId(e.target.value)}
-                            />
-                        </div>
+                      
                         <br/>
                         <h3>{nameError}</h3>
 

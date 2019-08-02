@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Main.css'
 import NotefulContext from "./NotefulContext"
+import PropTypes from 'prop-types'
 
 class NoteMain extends Component{
 
@@ -81,5 +82,9 @@ class NoteMain extends Component{
           );
   }
 }
+
+NoteMain.propTypes = {
+  match: PropTypes.object
+}
   
-  export default NoteMain;
+export default NoteMain;

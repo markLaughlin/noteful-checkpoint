@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import NotefulContext from "./NotefulContext"
 import AppError from "./AppError"
+import PropTypes from "prop-types"
 
-export default class AddNote extends Component{
+export default class AddNoteToSpecificFolder extends Component{
 
     static contextType = NotefulContext
 
@@ -20,6 +21,7 @@ export default class AddNote extends Component{
         let name = this.state.name.value
         let modified = this.state.modified
         let content = this.state.content
+
         let folderId = this.state.folderId
        
         let note = {
@@ -28,6 +30,7 @@ export default class AddNote extends Component{
             folderId: folderId,
             content: content
           }
+          console.log("Just before the fetch request; here is note: ")
           console.log(note)
           fetch(`http://localhost:9090/notes`, {
             method: 'POST',
@@ -58,10 +61,6 @@ export default class AddNote extends Component{
         this.setState({content: content})
     }
 
-    updateFolderId(folderId){
-        this.setState({folderId: folderId})
-    }
-
     validateName(){
         const name = this.state.name.value.trim();
         if (name.length === 0) {
@@ -71,18 +70,16 @@ export default class AddNote extends Component{
         }
       }//validateName
 
+    componentDidMount(){
+        let fId = this.props.match.params.folderId
+        this.setState({folderId: fId})
+    }
+
     render(){
-        console.log("render method of AddNote ran")
+        console.log("render method of AddNoteToSpecificFolder ran")
         let error  = this.state.error
         const nameError = this.state.name.touched ? this.validateName() : ""
-
-
-        let allFolders = this.context.contextFolders.map(folder => 
-                <option key={folder.id} value={folder.id}>{folder.name}</option>
-        );
         
-        console.log(allFolders)
-
         return(
             <AppError>
                 <div className="mainDiv">
@@ -137,19 +134,6 @@ export default class AddNote extends Component{
                         </div>
                         <br/>
 
-                        <div className="formInput">
-                            <label htmlFor='folder'>
-                            Folder: {" "}
-                            </label>
-                            
-                            <select name="folder" 
-                            id="folder" 
-                            onChange = {(e) => this.updateFolderId(e.target.value)}
-                            >
-                                {allFolders}
-                            </select>
-
-                        </div>
                         <br/>
                         
                         <button className="bigButton" type="submit">Save</button>
@@ -159,4 +143,8 @@ export default class AddNote extends Component{
             </AppError>
         );
     }
+}
+
+AddNoteToSpecificFolder.propTypes = {
+    match: PropTypes.object
 }

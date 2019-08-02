@@ -1,7 +1,8 @@
 import React, { Component } from "react"
 import NotefulContext from "./NotefulContext"
+import PropTypes from 'prop-types'
 
-import "./Sidebar.css"
+import "./Main.css"
 
 class NoteSidebar extends Component{
 
@@ -78,6 +79,11 @@ class NoteSidebar extends Component{
             </div>);
       }       
     }
+}
+
+NoteSidebar.propTypes = {
+  match: PropTypes.object,
+  history: PropTypes.object
 }
 
 export default NoteSidebar

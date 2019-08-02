@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import {  NavLink, Link } from 'react-router-dom'
-import "./Sidebar.css"
+import "./Main.css"
 import NotefulContext from "./NotefulContext"
 
 class FolderSidebar extends Component{
