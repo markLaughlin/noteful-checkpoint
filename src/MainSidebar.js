@@ -14,9 +14,10 @@ class MainSidebar extends Component{
         console.log("render method of MainSidebar Route component ran")
        
        
-        if(this.context.contextFolders[0]){
+       /*  if(this.context.contextFolders[0]){
+            console.log("this.context.contexFolders[0].name")
             console.log(this.context.contextFolders[0].name)
-        }
+        } */
 
         let allFolders =  this.context.contextFolders.map(folder=> 
             <div key={folder.id} className="folderDiv">

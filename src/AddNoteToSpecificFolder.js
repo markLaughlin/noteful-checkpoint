@@ -10,7 +10,6 @@ export default class AddNoteToSpecificFolder extends Component{
     state = {
         error: null,
         name: {value: "", touched: false},
-        modified: "",
         content: "",
         folderId: ""
       };
@@ -19,14 +18,15 @@ export default class AddNoteToSpecificFolder extends Component{
         console.log("handleNoteSubmit method ran")
         e.preventDefault()
         let name = this.state.name.value
-        let modified = this.state.modified
         let content = this.state.content
-
         let folderId = this.state.folderId
-       
+
+        let d = Date(Date.now()); 
+        let dateModified = d.toString() 
+        
         let note = {
             name: name,
-            modified: modified,
+            modified: dateModified,
             folderId: folderId,
             content: content
           }
@@ -47,15 +47,12 @@ export default class AddNoteToSpecificFolder extends Component{
             console.log(error)
             this.setState({error: error.message})
           })
+          window.location.reload();
     }//handleNoteSubmit
 
     updateName(name){
         this.setState({name:{value: name, touched: true}})
     }//updateName
-
-    updateModified(modified){
-        this.setState({modified: modified})
-    }
 
     updateContent(content){
         this.setState({content: content})
@@ -103,20 +100,6 @@ export default class AddNoteToSpecificFolder extends Component{
                             id='name'
                             placeholder='name of note here...'
                             onChange = {(e) => this.updateName(e.target.value)}
-                            />
-                        </div>
-                        <br/>
-
-                        <div className="formInput">
-                            <label htmlFor='modified'>
-                            Modified: {" "}
-                            </label>
-                            <input
-                            type='text'
-                            name='modified'
-                            id='modified'
-                            placeholder='month-day-year'
-                            onChange = {(e) => this.updateModified(e.target.value)}
                             />
                         </div>
                         <br/>

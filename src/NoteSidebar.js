@@ -33,6 +33,10 @@ class NoteSidebar extends Component{
         showFolderName = false
       }
 
+      console.log("showFolderName")
+
+      console.log(showFolderName)
+
       if(showFolderName){
         let displayNote = allNotes.filter(item => item.id === currentNoteId)
         console.log("displayNote: ")

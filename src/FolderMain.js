@@ -51,9 +51,6 @@ class FolderMain extends Component{
 
               {displayNotes}
 
-              
-
-              {/* <Link to="/addnote/{currentFolderId}"> */}
               <Link to={`/addNote/${currentFolderId}`}>
               <button className="bigButton">Add Note TO THIS FOLDER</button>
               </Link>

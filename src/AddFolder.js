@@ -26,7 +26,7 @@ export default class AddFolder extends Component{
             headers: {'content-type': 'application/json'},
         }
         )//fetch
-        
+        window.location.reload(); 
     }//handleFolderSubmit
 
     updateName(name){
@@ -75,8 +75,9 @@ export default class AddFolder extends Component{
                         </div>
 
                         <br/>
-
+                        
                         <button type="submit" className="bigButton">Save</button>
+
                         <br/>
                     </form>
                 </div>
