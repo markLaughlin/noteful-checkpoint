@@ -101,7 +101,7 @@ class App extends Component{
 
         <header>
           <h1>
-            <Link to="/">Noteful</Link>
+            <Link to="/">Noteful App!</Link>
           </h1>
         </header>
 
