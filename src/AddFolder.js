@@ -26,7 +26,9 @@ export default class AddFolder extends Component{
             headers: {'content-type': 'application/json'},
         }
         )//fetch
+        this.props.history.push('/')
         window.location.reload(); 
+
     }//handleFolderSubmit
 
     updateName(name){

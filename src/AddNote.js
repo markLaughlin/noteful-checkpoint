@@ -45,7 +45,8 @@ export default class AddNote extends Component{
             console.log(error)
             this.setState({error: error.message})
           })
-          window.location.reload();
+          this.props.history.push("/")
+          window.location.reload(); 
     }//handleNoteSubmit
 
     updateName(name){
